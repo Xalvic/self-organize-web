@@ -1,0 +1,13 @@
+:root {
+    --primary-darrk: #505050;
+    --primary-grey: #bdbdc9;
+    --primary-light: #ffffff;
+    --shade-one: #e3e3e1;
+    --shade-two: #ececea; 
+  }
+
+.layout-container {
+    height: 100vh;
+    width: 100%;
+    background-color: var(--shade-two);
+}

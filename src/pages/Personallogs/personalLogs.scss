@@ -1,0 +1,21 @@
+.personal-logs-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    .one {
+        grid-area: 1 / 1 / 2 / 2;
+        background-color: red;
+    }
+    .two {
+        grid-area: 2 / 1 / 5 / 2;
+        overflow-y: auto;
+        background-color: lawngreen;
+    }
+    .three {
+        grid-area: 5 / 1 / 6 / 2;
+        background-color: lightcoral;
+    }
+}
