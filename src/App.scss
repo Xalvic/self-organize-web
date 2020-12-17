@@ -1,6 +1,87 @@
+$base-dark: #202020;
+$dark-grey: #303136;
+$medium-grey: #707070;
+$accent: #43b581;
+$white: #ffffff;
+
 .App-container {
   min-height: 100vh;
   display: flex;
-  /* align-items: center; */
-  /* flex-direction: column; */
+}
+.layout-container {
+  background-color: $base-dark;
+}
+.navigation-container {
+  background-color: $base-dark;
+  .navigator {
+    color: $medium-grey;
+    &:hover {
+      color: $accent;
+    }
+  }
+  .navigator.active {
+    color: $accent;
+  }
+}
+
+.theme-changer {
+  .nav-icons {
+    color: $accent;
+  }
+}
+
+.worklogs-container {
+  background-color: $white;
+  border-radius: 1rem;
+
+  .logs-header  {
+    color: $base-dark;
+  }
+
+  .logs-wrapper {
+    .single-log  {
+      color: $base-dark;
+      .right-menu { 
+        background-color: $accent;
+      }
+      .log-date {
+        color: $accent;
+      }
+    }
+    .single-log-marked {
+      background-color: #43b58230;
+    }
+    .single-log:hover:not(.single-log-marked) {
+      background-color: #43b58218;
+    }
+  }
+
+  .input-container {
+    background-color: #e0e0e0;
+    border-radius: 1rem;
+    .the-timer {
+      border: 1px solid rgb(180, 180, 180);
+      background-color: $white;
+      .buttons {
+        .time-button {
+          background-color: #2dcc70;
+          color: #ffffff;
+          .logtime-icon {
+            color: #ffffff;
+          }
+        }
+        .stop-button {
+          background-color: #e75858;
+          color: #ffffff;
+          .stop-icon {
+              color: #ffffff;
+          }
+      }
+      }
+    }
+    .textarea {
+      background-color: $white;
+      color: $base-dark;
+    }
+  }
 }

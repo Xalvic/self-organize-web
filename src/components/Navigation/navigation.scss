@@ -1,0 +1,35 @@
+
+$primary-darrk: #505050;
+$primary-grey: #dbdbdb;
+$primary-light: #ffffff;
+$shade-one: #e3e3e1;
+$shade-two: #1E6270; 
+
+.navigation-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .navigator {
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 12px;
+      margin: 0.6rem;
+      padding: 1rem;
+      border-radius: 2px;
+    }
+    .navigator.active {
+      background-color: #adadad63;
+      font-weight: 600;
+    }
+    .nav-icons {
+      font-size: 20px;
+    }
+  }
+
+.theme-changer {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(-100%);
+}

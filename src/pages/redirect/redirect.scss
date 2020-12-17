@@ -1,0 +1,22 @@
+.redirect-container {
+    padding: 1.5rem;
+}
+.music-container {
+    margin: 1rem;
+    .track {
+        display: flex;
+        margin-bottom: 1rem;
+        padding: 0.7rem;
+        border-radius: 1rem;
+        background-color: rgb(206, 206, 206);
+        .track-image {
+            border-radius: 50%;
+        }
+        .track-title {
+            margin-left: 0.4rem;
+            font-size: 20px;
+            font-weight: 600;
+            align-self: flex-end;
+        }
+    }
+}

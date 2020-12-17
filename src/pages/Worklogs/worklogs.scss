@@ -5,10 +5,41 @@
     --shade-one: #f9fafc;
     --shade-two: #ececea; 
   }
+
+  .Stars {
+    --percent: calc(var(--rating) / 5 * 100%);
+    display: inline-block;
+    font-size: 20px;
+    font-family: Times;
+    line-height: 1;
+    
+    &::before {
+      content: '★★★★★';
+      letter-spacing: 3px;
+      background: linear-gradient(90deg, #fa1 var(--percent), #fff var(--percent));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
   
+  #time-spend-bar {
+    padding: 0.2rem;
+    margin: 0.7rem 0rem;
+    background-color: #ffdf6c31;
+    border-radius: 6px;
+    border: 2px dashed #ffDf6c;
+    height: 1.6rem;
+    width: 100%;
+    display: flex;
+    .bars {
+        border-radius: 4px;
+        background-color: #ffDf6c;
+        margin-right: 0.4rem;
+    }
+}
 
 .worklogs-container {
-    background-color: rgb(255, 255, 255);
     height: 100%;
     display: grid;
     grid-template-columns: 1fr;
@@ -19,9 +50,6 @@
         grid-area: 1 / 1 / 2 / 2;
         display: flex;
         flex-direction: column;
-        background-color: var(--primary-light);
-        border-bottom: 2px solid #38879785;
-        color: var(--primary-dark);
         margin: 0.6rem 1.3rem;
         .header-title {
             font-size: 34px;
@@ -35,15 +63,12 @@
         overflow-y: auto;
         display: flex;
         flex-direction: column;
-        background-color: var(--primary-light);
-        padding: 1rem 1.3rem;
+        padding: 1rem 1rem;
         .single-log {
             position: relative;
             cursor: pointer;
             display: flex;
             border-radius: 0.4rem;
-            background-color: #ffffff;
-            color: #292929;
             margin-bottom: 1rem;
             .left-box {
                 padding: 0.4rem 0.4rem;
@@ -51,9 +76,11 @@
                 flex-direction: column;
                 justify-content: space-evenly;
                 align-items: center;
-                background-color: transparent;
                 border-radius: 10px 0px 0px 10px;
                 min-width: 7rem;
+                .left-timer {
+                    font-size: 12px;
+                }
             }
 
             .player-button {
@@ -98,36 +125,11 @@
                 justify-content: space-around;
                 align-items: center;
                 width: 2rem;
-                background-color: #1E6270;
                 height: 100%;
                 border-radius: 0.2rem;
                 z-index: 200;
                 transform: translateX(15%);
                 transition: all 150ms ease-out;
-                .dropdown {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    transform: translateX(-100%);
-                    background-color: #ffffff;
-                    width: 300px;
-                    
-                    border: 1px solid rgba(0, 0, 0, 0.04);
-                    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
-                    ul {
-                        list-style: none;
-                        padding: 0;
-                        margin: 0;
-                      }
-                      li {
-                        padding: 8px 12px;
-                      }
-                      
-                      li:hover {
-                        background-color: rgba(0, 0, 0, 0.14);
-                        cursor: pointer;
-                      }
-                  }
             }
             .label {
                 padding: 0.1rem 0.3rem;
@@ -142,14 +144,40 @@
                 display: flex;
                 align-items: center;
                 align-self: flex-end;
-                color: #388797;
                 font-size: 0.8rem;
             }
         }
-        .single-log-marked {
-            background-color: rgb(255, 249, 182);
-        }
     }
+
+    .container-overlay {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #ffffff25;
+        z-index: 500;
+    }
+    .dropdown {
+        background-color: #ffffff;
+        width: 300px;
+        z-index: 600 !important;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+          }
+          li {
+            padding: 8px 12px;
+          }
+          
+          li:hover {
+            background-color: rgba(0, 0, 0, 0.14);
+            cursor: pointer;
+          }
+      }
 
     .logs-wrapper::-webkit-scrollbar-track {
         border-radius: 50px;
@@ -194,7 +222,6 @@
     display: flex;
     flex-direction: column;
     padding: 0.4rem 1.3rem;
-    background-color: #ffffff;
     .the-timer {
         position: absolute;
         top: 0;
@@ -203,11 +230,20 @@
         animation: timerEnter 180ms ease-out;
         display: flex;
         align-items: center;
+        flex-direction: column;
         padding: 0.7rem 3rem;
         margin-bottom: 0.6rem;
         border-radius: 0.3rem;
-        border: 1px solid #9c9c9c;
-        background-color: rgb(255, 255, 255);
+        z-index: 300;
+        .the-temp-log {
+            width: 300px;
+        }
+        .timer-bottom {
+            margin-top: 0.4rem;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
         .logged-time {
             font-size: 24px;
             font-weight: 600;
@@ -218,26 +254,15 @@
             .time-button {
                 display: flex;
                 align-items: center;
-                background-color: transparent;
                 margin: 0rem 0.4rem;
                 border: none;
                 outline: none;
-                background-color: #2dcc70;
                 border-radius: 0.2rem;
-                color: #ffffff;
                 padding: 0.4rem 1rem;
                 font-size: 0.7rem;
                 .logtime-icon {
-                    color: #ffffff;
                     font-size: 0.7rem;
                     margin-right: 0.4rem;
-                }
-            }
-            .stop-button {
-                background-color: #e75858;
-                color: #ffffff;
-                .stop-icon {
-                    color: #ffffff;
                 }
             }
         }
@@ -251,9 +276,7 @@
 
 .input-container .textarea {
     border-radius: 1.3rem;
-    background-color: #f9fafc;
-    border: 1px solid #8d8d8d;
-    color: #464646;
+    border: none;
     outline: none;
     font-family: inherit;
     font-size: inherit;

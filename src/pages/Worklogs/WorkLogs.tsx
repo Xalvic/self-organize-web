@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import Moment from 'react-moment';
+import moment from 'moment';
 import TextareaAutosize from 'react-textarea-autosize';
-import ReactTooltip from 'react-tooltip';
 import './worklogs.scss';
 import axios from 'axios';
 import { ListFormat } from 'typescript';
@@ -9,7 +8,10 @@ import { ListFormat } from 'typescript';
 const WorkLogs = () => {
     const [showTimer, setShowTimer] = useState(false);
     const [open, setOpen] = useState(false);
+    const [timeLogTemp, setTimeLogTemp] = useState('');
     const container: any = useRef(null);
+    let messagesEnd: any = useRef(null);
+    const [widther, setWidther] = useState(100);
 
     const [startTime, setStartTime]: any = useState(null);
     const [stopTime, setStopTime]: any = useState(null);
@@ -34,7 +36,7 @@ const WorkLogs = () => {
       };
 
     const handleStart = () => {
-        setStartTime(new Date(Date.now()))
+        setStartTime(new Date(Date.now()));
         console.log(startTime);
         setIsActive(true)
         setIsPaused(true)
@@ -56,13 +58,35 @@ const WorkLogs = () => {
       }
     
       const handleReset = () => {
-        setStopTime(new Date(Date.now()))
+        setStopTime(new Date(Date.now()));
+        console.log(startTime);
         console.log(stopTime);
-        console.log(formatTime())
-        clearInterval(increment.current)
-        setIsActive(false)
-        setIsPaused(false)
-        setTimer(0)
+        const data = {
+            _id: 15,
+            log: workLog,
+            startTime: startTime,
+            stopTime: stopTime,
+            created_At: '2020-11-21T14:05:42.517Z',
+            marked: false,
+            labels: [
+                {
+                    label: 'Onething',
+                    color: 'red',
+                },
+                {
+                    label: 'Twothing',
+                    color: 'yellow',
+                },
+            ]
+        }
+        setWorkLogs([...workLogs, data]);
+        console.log(workLogs);
+        clearInterval(increment.current);
+        setShowTimer(!showTimer)
+        setIsActive(false);
+        setIsPaused(false);
+        setTimer(0);
+        setWorkLog("");
       }
     
       const formatTime = () => {
@@ -94,6 +118,8 @@ const WorkLogs = () => {
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data',
             created_At: '2020-11-21T14:05:42.517Z',
             marked: false,
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             labels: [
                 {
                     label: 'Onething',
@@ -118,6 +144,8 @@ const WorkLogs = () => {
             _id: 2,
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code ',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: true,
             labels: [
                 {
@@ -138,6 +166,8 @@ const WorkLogs = () => {
             _id: 3,
             log: 'Your first instinct, when you start to do something new, should be git init',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -155,6 +185,8 @@ const WorkLogs = () => {
             _id: 4,
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -175,6 +207,8 @@ const WorkLogs = () => {
             _id: 5,
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data Your first instinct, when you start to do something new, should be git init.',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -191,6 +225,8 @@ const WorkLogs = () => {
             _id: 6,
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -216,6 +252,8 @@ const WorkLogs = () => {
             _id: 7,
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -228,6 +266,8 @@ const WorkLogs = () => {
             _id: 8,
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code ',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -253,6 +293,8 @@ const WorkLogs = () => {
             _id: 9,
             log: 'Your first instinct, when you start to do something new, should be git init',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -265,6 +307,8 @@ const WorkLogs = () => {
             _id: 10,
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -282,6 +326,8 @@ const WorkLogs = () => {
             _id: 11,
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data Your first instinct, when you start to do something new, should be git init.',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -294,6 +340,8 @@ const WorkLogs = () => {
             _id: 12,
             log: 'Your first instinct, when you start to do something new, should be git init. You’re starting to write a new paper, you’re writing a bit of code to do a computer simulation, you’re mucking around with some new data',
             created_At: '2020-11-21T14:05:42.517Z',
+            startTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
+            stopTime: 'Tue Dec 15 2020 11:32:12 GMT+0530 (India Standard Time)',
             marked: false,
             labels: [
                 {
@@ -311,10 +359,10 @@ const WorkLogs = () => {
     const addBookmark = (id: number) => {
         setWorkLogs(
             workLogs.map((log: any) => {
-              if (log._id === id) { log.marked = !log.marked }
-              return log;
+                if (log._id === id) { log.marked = !log.marked }
+                return log;
             })
-          )
+        )
     }
 
     const addLogs = () => {
@@ -334,19 +382,20 @@ const WorkLogs = () => {
                 },
             ]
         }
-        setWorkLog('');
+        setWorkLog(null);
         setWorkLogs([...workLogs, data]);
+        scrollToBottom();
         console.log(workLogs);
     }
 
     useEffect(() => {
         fetchWorkLogs();
-        document.addEventListener("mousedown", handleClickOutside);
-        console.log(todayDate);
+        // document.addEventListener("mousedown", handleClickOutside);
+        // console.log(todayDate);
 
-        return () => {
-            document.removeEventListener("mousedown", handleClickOutside);
-        }
+        // return () => {
+        //     document.removeEventListener("mousedown", handleClickOutside);
+        // }
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     const fetchWorkLogs = () => {
@@ -365,6 +414,31 @@ const WorkLogs = () => {
     setWorkLogs(theArray);
     }
 
+    const scrollToBottom = () => {
+        //Element.prototype.scrollIntoView = jest.fn();
+        //window.HTMLElement.prototype.scrollIntoView = function() {};
+        
+        //messagesEnd.scrollIntoView({ behavior: "smooth" });
+        console.log("New One")
+      }
+    const lol = [
+        {
+            start: 'Tue Dec 15 2020 10:00:00 GMT+0530 (India Standard Time)',
+            stop: 'Tue Dec 15 2020 11:04:12 GMT+0530 (India Standard Time)',
+        },
+        {
+            start: 'Tue Dec 15 2020 11:10:12 GMT+0530 (India Standard Time)',
+            stop: 'Tue Dec 15 2020 16:04:12 GMT+0530 (India Standard Time)',
+        },
+        {
+            start: 'Tue Dec 15 2020 16:10:12 GMT+0530 (India Standard Time)',
+            stop: 'Tue Dec 15 2020 24:00:00 GMT+0530 (India Standard Time)',
+        },
+        ]
+
+    //   const theStyler = {
+    //     width: widther + 'px',
+    //   }
 
 
     return (
@@ -373,7 +447,19 @@ const WorkLogs = () => {
 
                 <div className="logs-header">
                     <p className="header-title">Work Logs</p>
-                    <p className="moment-time"><Moment format="ddd, MMM DD" date={todayDate} /></p>
+                    <p className="moment-time">{moment(todayDate).format("ddd, MMM DD")}</p>
+
+                    <div id="time-spend-bar">
+                        {lol.map((lol: any) => (
+                            <div
+                            className="bars"
+                            style={{ 
+                                width:  
+                                (moment(lol.stop).diff(moment().startOf('day'), 'seconds') - 
+                                moment(lol.start).diff(moment().startOf('day'), 'seconds')) / 86400 * 100 + '%'}}
+                            ></div>
+                        ))}
+                    </div>
                 </div>
 
                 <div className="logs-wrapper">
@@ -383,7 +469,10 @@ const WorkLogs = () => {
 
                             <div className="left-box">
                                 
-                                <p>Heyy</p>
+                                <p className="left-timer">
+                                
+                                {moment(log.startTime).format("hh:mm a")} to {moment(log.stopTime).format("hh:mm a")}
+                                </p>
 
                             </div>
                             
@@ -391,8 +480,8 @@ const WorkLogs = () => {
 
                                     <p className="log-content">{log.log}</p>
                                     <div className="below-row">
-
-                                            <p className="log-date"><Moment format="hh:mm A" date={log.created_At} /></p>
+                                    
+                                            <p className="log-date">{moment(log.created_At).format("hh:mm a")}</p>
 
                                             <div className="labels">
                                                 {log.labels.map((label: any) => (
@@ -409,26 +498,33 @@ const WorkLogs = () => {
                             <div className="right-menu" ref={container}>
                                     <i onClick={handleButtonClick} className="fas fa-ellipsis-v log-icons-more"></i>
 
-                                    {open && (
-
-                                            <div className="dropdown">
-                                                <ul>
-                                                    <li>Option 1</li>
-                                                    <li>Option 2</li>
-                                                    <li>Option 3</li>
-                                                    <li>Option 4</li>
-                                                </ul>
-                                            </div>
-
-                                    )}
-
                                     { log.marked === false && (<i onClick={() => addBookmark(log._id)} className="far fa-bookmark log-icons-more"></i>) }
                                     { log.marked === true && (<i onClick={() => addBookmark(log._id)} className="fas fa-bookmark log-icons-more"></i>) }
                             </div>
-                        
+            
                         </div>
+                        
                     ))}
 
+                                    {open && (
+                                            <div onClick={handleButtonClick} className="container-overlay">
+
+                                                <div className="dropdown">
+                                                    <ul>
+                                                        <li>Option 1</li>
+                                                        <li>Option 2</li>
+                                                        <li>Option 3</li>
+                                                        <li>Option 4</li>
+                                                    </ul>
+                                                </div>
+
+                                            </div>
+                                    )}
+
+                </div>
+
+                <div style={{ float:"left", clear: "both" }}
+                     ref={messagesEnd}>
                 </div>
 
             {/* </div> */}
@@ -438,21 +534,29 @@ const WorkLogs = () => {
                     {showTimer &&
                         <div className="the-timer">
 
-                            <p className="logged-time">{formatTime()}</p>
-                    
-                            <div className='buttons'>
-                                {
-                                    !isActive && !isPaused ?
-                                    <button className="time-button" onClick={handleStart}>
-                                        <i className="fas fa-play log-icons logtime-icon"></i> Start
+                            <p className="the-temp-log">
+                            {`${timeLogTemp.substring(0, 40)} ...`}
+                            </p>
+
+                            <div className="timer-bottom">
+
+                                <p className="logged-time">{formatTime()}</p>
+                        
+                                <div className='buttons'>
+                                    {
+                                        !isActive && !isPaused ?
+                                        <button className="time-button" onClick={handleStart}>
+                                            <i className="fas fa-play log-icons logtime-icon"></i> Start
+                                        </button>
+                                        : (
+                                            isPaused ? <button className="time-button" onClick={handlePause}><i className="fas fa-pause log-icons logtime-icon"></i> Pause </button> : <button className="time-button" onClick={handleResume}><i className="fas fa-play log-icons logtime-icon"></i> Start </button>
+                                            )
+                                    }
+                                    <button className="time-button stop-button" onClick={handleReset} disabled={!isActive}>
+                                        <i className="fas fa-stop log-icons stop-icon logtime-icon"></i> Log
                                     </button>
-                                    : (
-                                        isPaused ? <button className="time-button" onClick={handlePause}><i className="fas fa-pause log-icons logtime-icon"></i> Pause </button> : <button className="time-button" onClick={handleResume}><i className="fas fa-play log-icons logtime-icon"></i> Start </button>
-                                        )
-                                }
-                                <button className="time-button stop-button" onClick={handleReset} disabled={!isActive}>
-                                    <i className="fas fa-stop log-icons stop-icon logtime-icon"></i> Log
-                                </button>
+                                </div>
+
                             </div>
                     
                         </div>
@@ -460,12 +564,12 @@ const WorkLogs = () => {
 
                 <div className="input-elements">
 
-                    <i title="Upload Image" className="fas fa-images clickable-pointer log-icons"></i>
+                    <i className="fas fa-paperclip clickable-pointer log-icons"></i>
 
-                    <TextareaAutosize className="textarea" onChange={onInput} />
+                    <TextareaAutosize className="textarea" placeholder="What are doing now ?" onChange={onInput} />
 
-                    <i title="Log time" onClick = {() => setShowTimer(!showTimer)} className="far fa-clock log-icons clickable-pointer"></i>
-                        or
+                    <i title="Log time" onClick = {() => { setShowTimer(!showTimer); setTimeLogTemp(workLog);}} className="far fa-clock log-icons clickable-pointer"></i>
+            
                     <i title="Log without time" onClick = {addLogs} className="fas fa-paper-plane log-icons clickable-pointer"></i>
 
                 </div>
